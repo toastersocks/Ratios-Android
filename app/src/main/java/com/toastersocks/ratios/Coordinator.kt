@@ -1,6 +1,5 @@
 package com.toastersocks.ratios
 
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 
@@ -128,11 +127,21 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
                 .commit()
     }
 
-    private fun showErrorDialogue() {
-        val errorDialogue = DialogFragment()
-        errorDialogue.dialog.setTitle("Oops!")
-//        errorDialogue.dialog.set
-        TODO("Not implemented")
+    private fun showErrordialog() {
+
+        val okButton = DialogButton(title = "OK")  {
+            dialog, whichButton ->
+            Log.d("Dialog", "Dialog ok button was tapped")
+            dialog.dismiss()
+        }
+
+
+        var errorDialog = ErrorDialogFragment.newInstance(
+                title = "Oops",
+                message = "Your desired ratio can't be achieved using the strains you've entered. Make sure you entered the numbers correctly and/or try a different ratio or use different strains. Ratios works best using one CBD strain and one THC strain",
+                positiveButton = okButton)
+
+        errorDialog.show(fragmentManager, "error")
     }
 
 }
