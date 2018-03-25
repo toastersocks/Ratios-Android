@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.toastersocks.ratios.StrainsFragment">
+
+    <EditText
+        android:id="@+id/thcStrainCBDPercentageField"
+        android:layout_width="59dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/thcPercentTHCLabel"
+        app:layout_constraintTop_toTopOf="@+id/thcStrainTHCPercentageField" />
+
+    <EditText
+        android:id="@+id/cbdStrainCBDPercentageField"
+        android:layout_width="59dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/cbdTHCPercentLabel"
+        app:layout_constraintTop_toTopOf="@+id/cbdStrainTHCPercentageField" />
+
+    <EditText
+        android:id="@+id/cbdStrainTHCPercentageField"
+        android:layout_width="59dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbdStrainLabel" />
+
+    <TextView
+        android:id="@+id/cbdPercentCBDLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="% cbd"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/cbdStrainCBDPercentageField"
+        app:layout_constraintTop_toTopOf="@+id/cbdStrainTHCPercentageField" />
+
+        <TextView
+            android:id="@+id/cbdTHCPercentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="% thc"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/cbdStrainTHCPercentageField"
+            app:layout_constraintTop_toTopOf="@+id/cbdStrainTHCPercentageField" />
+
+    <EditText
+        android:id="@+id/thcStrainTHCPercentageField"
+        android:layout_width="59dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thcStrainLabel" />
+
+        <TextView
+            android:id="@+id/thcPercentCBDLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="% cbd"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/thcStrainCBDPercentageField"
+            app:layout_constraintTop_toTopOf="@+id/thcStrainTHCPercentageField" />
+
+        <TextView
+            android:id="@+id/thcStrainLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="48dp"
+            android:text="thc strain"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/helpButton" />
+
+        <TextView
+            android:id="@+id/thcPercentTHCLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="% thc"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/thcStrainTHCPercentageField"
+            app:layout_constraintTop_toTopOf="@+id/thcStrainTHCPercentageField" />
+
+        <TextView
+            android:id="@+id/cbdStrainLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="48dp"
+            android:text="cbd strain"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thcStrainTHCPercentageField" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/helpButton"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:elevation="0dp"
+            android:text="?"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>

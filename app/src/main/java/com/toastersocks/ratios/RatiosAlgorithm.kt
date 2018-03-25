@@ -4,26 +4,14 @@ package com.toastersocks.ratios
  * Created by James Pamplona on 3/1/18.
  */
 
-import kotlin.math.round
+import kotlin.math.roundToInt
 
-class Strain(thc: Double, cbd: Double) {
-    val thc: Double
-    val cbd: Double
+data class Strain(
+        val thc: Double,
+        val cbd: Double
+)
 
-    init {
-        this.thc = thc
-        this.cbd = cbd
-    }
-}
-
-class Ratio(numerator: Int, denominator: Int) {
-    val numerator: Int
-    val denominator: Int
-
-    init {
-        this.numerator = numerator
-        this.denominator = denominator
-    }
+data class Ratio(val numerator: Int, val denominator: Int) {
 
     val reduced: Ratio
         get() {
@@ -31,8 +19,8 @@ class Ratio(numerator: Int, denominator: Int) {
             return Ratio(numerator / gcd, denominator / gcd)
         }
 
-    private fun greatestCommonDivisor(a: Int, b: Int): Int {
-        if (a == b) {
+    fun greatestCommonDivisor(a: Int, b: Int): Int {
+        if (a == 0) {
             return b
         }
         return greatestCommonDivisor(b % a, a)
@@ -43,18 +31,11 @@ class Ratio(numerator: Int, denominator: Int) {
 /**
  * Encapsulates the algorithms needed to calculate various properties pertaining to mixing strains of cannabis
  * */
-class RatiosAlgorithm(thcStrain: Strain, cbdStrain: Strain, desiredTHCFactor: Double, desiredCBDFactor: Double) {
-    val thcStrain: Strain
-    val cbdStrain: Strain
-    val desiredTHCFactor: Double
-    val desiredCBDFactor: Double
-
-    init {
-        this.thcStrain = thcStrain
-        this.cbdStrain = cbdStrain
-        this.desiredTHCFactor = desiredTHCFactor
-        this.desiredCBDFactor = desiredCBDFactor
-    }
+class RatiosAlgorithm(
+        val thcStrain: Strain,
+        val cbdStrain: Strain,
+        val desiredTHCFactor: Double,
+        val desiredCBDFactor: Double) {
 
     private val thcYIntercept: Double = thcStrain.thc
     private val cbdYIntercept: Double = thcStrain.cbd
@@ -70,8 +51,8 @@ class RatiosAlgorithm(thcStrain: Strain, cbdStrain: Strain, desiredTHCFactor: Do
      * @return Returns a Strain value with the percentages of THC and CBD in the mix
      */
     fun cannabinoidPercentagesAtCBDRatio(cbdRatio: Double): Strain {
-        val totalFinalTHCY = thcSlope * cbdRatio.toDouble() + thcYIntercept
-        val totalFinalCBDY = cbdSlope * cbdRatio.toDouble() + cbdYIntercept
+        val totalFinalTHCY = thcSlope * cbdRatio + thcYIntercept
+        val totalFinalCBDY = cbdSlope * cbdRatio + cbdYIntercept
 
         return Strain(totalFinalTHCY, totalFinalCBDY)
     }
@@ -87,9 +68,10 @@ class RatiosAlgorithm(thcStrain: Strain, cbdStrain: Strain, desiredTHCFactor: Do
         val m1 = (cbdStrain.cbd - thcStrain.cbd) / 100 // CBD slope
         val m2 = (cbdStrain.thc - thcStrain.thc) / 100 // THC slope
         // (t * b1 - c * b2) / (c * m2 - t * m1)
+
 //        val result = (desiredTHCFactor * b1 - desiredCBDFactor * b2) / (desiredCBDFactor * m2 - desiredTHCFactor * m1)
 
-        /*if result.isNaN {
+            /*if result.isNaN {
             throw AlgorithmError.notANumber
         }*/
 
@@ -108,8 +90,8 @@ class RatiosAlgorithm(thcStrain: Strain, cbdStrain: Strain, desiredTHCFactor: Do
 
     fun calculateRatio(): Ratio {
 
-        return Ratio(round(finalTHCMixPercentage()).toInt(),
-                            round(finalCBDMixPercentage()).toInt())
+        return Ratio(finalTHCMixPercentage().roundToInt(),
+                            finalCBDMixPercentage().roundToInt())
                 .reduced
                 }
 }
