@@ -65,7 +65,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
             val cannabinoidPercentages = ratiosAlgorithm.cannabinoidPercentagesAtCBDRatio(ratiosAlgorithm.finalCBDMixPercentage())
 
             if (ratiosAlgorithm.finalCBDMixPercentage() < 0 || ratiosAlgorithm.finalTHCMixPercentage() < 0) {
-                showErrorDialogue()
+                showErrordialog()
             }
 
             var forMessage: String
@@ -108,7 +108,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
         } catch(error: Exception) {
             Log.e("CoordinatorError", error.localizedMessage)
             Log.e("CoordinatorError", error.stackTrace[0].toString())
-            showErrorDialogue()
+            showErrordialog()
         }
 
     }
