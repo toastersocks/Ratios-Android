@@ -19,7 +19,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
         // TODO: Add input validation?
 
         fragmentManager.beginTransaction()
-                .replace(R.id.main_view, ratiosFragment)
+                .replace(R.id.main_view, ratiosFragment, "ratios")
                 .addToBackStack("ratios")
                 .commit()
     }
@@ -32,7 +32,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
         strainsFragment.delegate = this
 
         fragmentManager.beginTransaction()
-                .replace(R.id.main_view, strainsFragment)
+                .replace(R.id.main_view, strainsFragment, "strains")
                 .addToBackStack("strains")
                 .commit()
 
@@ -101,7 +101,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
             resultsFragment.state = results
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.main_view, resultsFragment)
+                    .replace(R.id.main_view, resultsFragment, "results")
                     .addToBackStack("results")
                     .commit()
         } catch(error: Exception) {
@@ -122,7 +122,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
 
     override fun helpTapped() {
         fragmentManager.beginTransaction()
-                .replace(R.id.main_view, HelpFragment())
+                .replace(R.id.main_view, HelpFragment(), "help")
                 .addToBackStack("help")
                 .commit()
     }
