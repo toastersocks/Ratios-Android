@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_results.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 
 interface ResultsFragmentDelegate {
     fun newRatioButtonTappedWithState(state: ResultsFragment.State)
@@ -21,17 +23,24 @@ class ResultsFragment : Fragment() {
             val mixMessage: String = ""
     )
 
-    var state = State()
+    var state: State
         set(value) {
-            field = value
-            forMessageLabel?.text = value.forMessage
-            mixMessageLabel?.text = value.mixMessage
+            launch {
+                while (forMessageLabel == null) {}; launch(UI) { forMessageLabel!!.text = value.forMessage }
+                println("for DONE")
+            }
+            launch {
+                while (mixMessageLabel == null) {}; launch(UI) { mixMessageLabel!!.text = value.mixMessage }
+                println("mix DONE")
+            }
         }
+    get() = State(forMessage = forMessageLabel?.text.toString(), mixMessage = mixMessageLabel?.text.toString())
 
     override fun onStart() {
         super.onStart()
-        forMessageLabel.text = state.forMessage
-        mixMessageLabel.text = state.mixMessage
+        println("ONSTART STARTING")
+//        forMessageLabel.text = state.forMessage
+//        mixMessageLabel.text = state.mixMessage
 
         newRatioButton.setOnClickListener {
             delegate?.newRatioButtonTappedWithState(state)

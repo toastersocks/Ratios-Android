@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_ratios.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 
 interface RatiosFragmentDelegate {
     fun nextTapped(state: RatiosFragment.State)
@@ -21,13 +23,21 @@ class RatiosFragment : Fragment() /*, RatiosFragmentDelegate by delegate*/ {
             var grams: String = ""
     )
 
+//    private var mToBeBound: State
 
     var state: State
         set(value) {
-//            field = value
-            desiredTHCRatioField?.setText(value.thcRatio)
-            desiredCBDRatioField?.setText(value.cbdRatio)
-            gramsField?.setText(value.grams)
+
+            launch {
+                while (desiredCBDRatioField == null
+                        || desiredTHCRatioField == null
+                        || gramsField == null) {}
+                launch(UI) {
+                    desiredTHCRatioField!!.setText(value.thcRatio)
+                    desiredCBDRatioField!!.setText(value.cbdRatio)
+                    gramsField?.setText(value.grams)
+                }
+            }
         }
         get() = State(desiredTHCRatioField.text.toString(), desiredCBDRatioField.text.toString(), gramsField.text.toString())
 
@@ -40,22 +50,33 @@ class RatiosFragment : Fragment() /*, RatiosFragmentDelegate by delegate*/ {
                 !state.cbdRatio.isEmpty())
     }
 
+    /*fun bind(state: State) {
+
+    }*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onStart() {
         super.onStart()
-
         nextButton.isEnabled = nextButtonShouldBeEnabled()
 
         nextButton.setOnClickListener { delegate?.nextTapped(state) }
         helpButton.setOnClickListener { delegate?.helpTapped() }
 
-        val onTextChange: (String) -> Unit = { nextButton.isEnabled = nextButtonShouldBeEnabled() }
+        val afterTextChange: (String) -> Unit = {
+            nextButton.isEnabled = nextButtonShouldBeEnabled()
+        }
 
-        desiredTHCRatioField.afterTextChange(onTextChange)
-        desiredCBDRatioField.afterTextChange(onTextChange)
+        val beforeTextChange: (String, Int, Int, Int) -> Unit = {
+            string, start, count, after ->
+
+
+        }
+
+        desiredTHCRatioField.afterTextChange(afterTextChange)
+        desiredCBDRatioField.afterTextChange(afterTextChange)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,

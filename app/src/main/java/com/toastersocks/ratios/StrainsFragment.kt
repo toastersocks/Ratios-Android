@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_strains.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 
 interface StrainsFragmentDelegate {
     fun nextTapped(state: StrainsFragment.State)
@@ -23,11 +25,18 @@ class StrainsFragment : Fragment() {
 
     var state: State
         set(value) {
-//            field = value
-            thcStrainTHCPercentageField?.setText(value.thcStrainTHCPercentage)
-            thcStrainCBDPercentageField?.setText(value.thcStrainCBDPercentage)
-            cbdStrainTHCPercentageField?.setText(value.cbdStrainTHCPercentage)
-            cbdStrainCBDPercentageField?.setText(value.cbdStrainCBDPercentage)
+            launch {
+                while (thcStrainTHCPercentageField == null ||
+                       thcStrainCBDPercentageField == null ||
+                       cbdStrainTHCPercentageField == null ||
+                       cbdStrainCBDPercentageField == null) {}
+                launch(UI) {
+                    thcStrainTHCPercentageField!!.setText(value.thcStrainTHCPercentage)
+                    thcStrainCBDPercentageField!!.setText(value.thcStrainCBDPercentage)
+                    cbdStrainTHCPercentageField!!.setText(value.cbdStrainTHCPercentage)
+                    cbdStrainCBDPercentageField!!.setText(value.cbdStrainCBDPercentage)
+                }
+            }
         }
     get() = State(
             thcStrainTHCPercentageField.text.toString(),
