@@ -1,6 +1,7 @@
 package com.toastersocks.ratios
 
 import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.util.Log
 
 /**
@@ -32,6 +33,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
         strainsFragment.delegate = this
 
         fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(R.id.main_view, strainsFragment, "strains")
                 .addToBackStack("strains")
                 .commit()
@@ -101,6 +103,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
             resultsFragment.state = results
 
             fragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.main_view, resultsFragment, "results")
                     .addToBackStack("results")
                     .commit()
@@ -122,6 +125,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
 
     override fun helpTapped() {
         fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(R.id.main_view, HelpFragment(), "help")
                 .addToBackStack("help")
                 .commit()
