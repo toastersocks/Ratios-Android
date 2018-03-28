@@ -116,7 +116,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
     // MARK: ResultsFragmentDelegate
     //region ResultsFragmentDelegate
     override fun newRatioButtonTappedWithState(state: ResultsFragment.State) {
-        fragmentManager.popBackStack("ratios", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        fragmentManager.popBackStack("ratios", 0)
     }
     //endregion
 
