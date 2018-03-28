@@ -132,7 +132,7 @@ class Coordinator(private var fragmentManager: FragmentManager): RatiosFragmentD
     private fun showErrordialog() {
 
         val okButton = DialogButton(title = "OK")  {
-            dialog, whichButton ->
+            dialog, _ ->
             Log.d("Dialog", "Dialog ok button was tapped")
             dialog.dismiss()
         }
