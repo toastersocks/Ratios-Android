@@ -67,16 +67,14 @@ class RatiosAlgorithm(
         val b2 = thcStrain.thc // THC y-intercept
         val m1 = (cbdStrain.cbd - thcStrain.cbd) / 100 // CBD slope
         val m2 = (cbdStrain.thc - thcStrain.thc) / 100 // THC slope
-        // (t * b1 - c * b2) / (c * m2 - t * m1)
 
-//        val result = (desiredTHCFactor * b1 - desiredCBDFactor * b2) / (desiredCBDFactor * m2 - desiredTHCFactor * m1)
+        val result = (desiredTHCFactor * b1 - desiredCBDFactor * b2) / (desiredCBDFactor * m2 - desiredTHCFactor * m1)
 
-            /*if result.isNaN {
-            throw AlgorithmError.notANumber
-        }*/
+        if (!(0.0..100.0).contains(result)) {
+            throw ArithmeticException("The result is either NaN, infinite, or not between 0 and 100")
+        }
 
-//        return result
-        return (desiredTHCFactor * b1 - desiredCBDFactor * b2) / (desiredCBDFactor * m2 - desiredTHCFactor * m1)
+        return result
     }
 
     /** Calculates the percent of THC strains needed to get the desired ratio of CBD & THC percentages in the final mix
